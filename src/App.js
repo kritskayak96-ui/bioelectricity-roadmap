@@ -292,8 +292,16 @@ export default function App() {
       <section className="hero" id="top">
         <div className="glow" aria-hidden />
         <div className="kicker">Bioelectricity roadmap</div>
-        <h1 className="h1">Bioelectricity Roadmap</h1>
-        <p className="sub">“Vmem → Chromatin → Transcriptome → Phenotype”</p>
+<h1 className="h1">Bioelectricity Can Shape Life</h1>
+<p className="sub">
+  Aging may be a loss of electrical coherence — a fading signal in the body’s
+  living circuits.  
+  We explore how bioelectricity controls regeneration, morphogenesis, and
+  cellular communication.
+  Our mission as an international research collective is to uncover the rules
+  of biological electricity and apply them to healing, longevity, and the
+  reprogramming of life itself.
+</p>
 
         <nav className="nav" aria-label="Section navigation">
           {sections.map((s) => (
