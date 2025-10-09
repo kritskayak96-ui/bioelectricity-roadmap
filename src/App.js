@@ -146,37 +146,109 @@ const sections = [
   },
 
   {
+    id: "experiments",
+    title: "IV. Experimental & Translational Projects",
+    emoji: "🧬",
+    groups: [
+      {
+        title: "Experimental directions",
+        items: [
+          "Morphogenesis control: studying the role of membrane potential and electric fields in the regeneration of lost body parts.",
+          "Wound healing: visualization of endogenous electric currents during regeneration and their spatiotemporal dynamics.",
+          "Oncogenic transformation: testing the hypothesis of 'bioelectric cancer attractors' — disrupted intercellular electrical communication during tumor progression.",
+          "Pharmacological modulation: application of ion channel modulators, gap-junction regulators, and external fields to control morphogenesis.",
+          "Cosmetoelectric studies: exploring how local bioelectric modulation affects skin regeneration, pigmentation, and collagen remodeling — foundation for next-gen aesthetic biotechnologies."
+        ],
+      },
+      {
+        title: "Expected results",
+        items: [
+          "Generation of Vmem regeneration maps — spatial-temporal patterns of electrical activity during tissue repair.",
+          "Identification of critical bioelectric states necessary for maintaining morphogenetic stability.",
+          "Construction of bioelectric attractor models explaining transitions from normal to pathological morphologies.",
+          "Development of experimental interfaces for precise bioelectric control of tissue growth and healing (soft bioelectrodes, microcurrent fields).",
+          "Experimental validation of bioelectricity as a systems-level regulator of gene expression and cell identity."
+        ],
+      },
+    ],
+  },
+
+  {
     id: "applications",
-    title: "IV. Applications",
+    title: "V. Applied Bioelectricity",
     emoji: "🧪",
     groups: [
       {
-        title: "Regenerative medicine",
+        title: "Regenerative & aesthetic medicine",
         items: [
-          "Exogenous stimulation to guide growth",
-          "Axis control in regeneration (axolotl, Xenopus)",
-          "Conductive biomaterials & electroactive hydrogels",
+          "Guided tissue growth via exogenous stimulation",
+          "Bioelectric wound healing & scar modulation",
+          "Cosmetoelectric rejuvenation: microcurrents for collagen induction",
         ],
       },
       {
-        title: "Antioncogenic strategies",
+        title: "Antioncogenic & metabolic control",
         items: [
-          "Therapeutic hyperpolarization",
-          "Combining with epigenetic agents (HDAC inhibitors, SCFAs)",
+          "Therapeutic hyperpolarization approaches",
+          "Combining with epigenetic and metabolic modulators",
         ],
       },
       {
-        title: "Organoids & synthetic morphogenesis",
+        title: "Synthetic morphogenesis & organoids",
         items: [
-          "Electrical fields to steer self-organization",
-          "Field-driven growth programs",
+          "Electric fields steering organoid self-organization",
+          "Field-driven growth and developmental programs",
         ],
       },
       {
         title: "Bioelectronic interfaces",
         items: [
-          "Electro-cellular interfaces & biosensors",
-          "Energy harvesting from biopotentials",
+          "Electro-cellular and neuro-bio interfaces",
+          "Energy harvesting and sensory feedback loops",
+        ],
+      },
+    ],
+  },
+
+  {
+    id: "companies",
+    title: "VI. Proto-Companies & Translational Vectors",
+    emoji: "💼",
+    groups: [
+      {
+        title: "BioElectric Therapeutics",
+        items: [
+          "Platform for controlled tissue regeneration via electric fields and ionic currents.",
+          "Focus: wound healing, post-surgical recovery, trophic ulcers.",
+        ],
+      },
+      {
+        title: "MorphogenX",
+        items: [
+          "Bioelectrical morphogenesis engineering.",
+          "Focus: restoring organ shape, preventing fibrosis, and reshaping developmental fields through endogenous voltage patterns.",
+        ],
+      },
+      {
+        title: "OncoField Analytics",
+        items: [
+          "Diagnostics and therapy of oncogenic states via restoration of bioelectric homeostasis.",
+          "Focus: mapping electric anomalies and correcting them using ion channel modulators, peptides, and field therapy.",
+        ],
+      },
+      {
+        title: "NeuroForm Biointerfaces",
+        items: [
+          "Bioelectronic interfaces and implants based on endogenous signaling principles.",
+          "Focus: neuroregeneration, brain-computer interfaces, cognitive enhancement, and longevity medicine.",
+        ],
+      },
+      {
+        title: "ElectraDerma Biotech",
+        items: [
+          "Bioelectric aesthetics and skin rejuvenation.",
+          "Focus: soft wearable microcurrent systems to restore dermal symmetry, stimulate collagen synthesis, and accelerate scar healing.",
+          "Vision: merging beauty and bioelectric medicine into a unified regenerative platform.",
         ],
       },
     ],
@@ -184,7 +256,7 @@ const sections = [
 
   {
     id: "future",
-    title: "V. Future & Synthesis",
+    title: "VII. Future & Synthesis",
     emoji: "🔮",
     groups: [
       {
@@ -192,15 +264,6 @@ const sections = [
         items: [
           "ΔVmem as information & memory carrier",
           "Analogies to computing networks; topological/quantum-like models",
-          {
-            text: "Foundational perspectives on the ‘bioelectric code’",
-            links: [
-              {
-                label: "Levin 2014/2017 overviews",
-                href: "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5477612/",
-              },
-            ],
-          },
         ],
       },
       {
@@ -221,148 +284,4 @@ const sections = [
       },
     ],
   },
-
-  {
-    id: "models",
-    title: "VI. Key Models & Players",
-    emoji: "🧬",
-    groups: [
-      {
-        title: "Models",
-        items: [
-          " Planaria — emblem of bioelectric morphogenesis",
-          " Xenopus — versatile regeneration model",
-          " Axolotl — limb regeneration master",
-          " Mitochondria — inner electrical generator",
-          " Neurons — ancient bioelectric network",
-        ],
-      },
-      {
-        title: "References (selected)",
-        items: [
-          {
-            text: "Planaria head identity re-writes via gap junctions",
-            links: [
-              {
-                label: "Emmons-Bell et al., 2015",
-                href: "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4661923/",
-              },
-            ],
-          },
-          {
-            text: "Vmem as a regulator of tumorigenesis (Xenopus)",
-            links: [
-              {
-                label: "Chernet & Levin, 2013",
-                href: "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3753036/",
-              },
-            ],
-          },
-          {
-            text: "Cracking/reading the bioelectric code (reviews)",
-            links: [
-              {
-                label: "Tseng & Levin, 2013",
-                href: "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3614717/",
-              },
-              {
-                label: "Levin, 2017 (overview)",
-                href: "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5477612/",
-              },
-            ],
-          },
-        ],
-      },
-    ],
-  },
-
-  {
-    id: "toolkit",
-    title: "VII. Toolkit",
-    emoji: "🧰",
-    groups: [
-      {
-        title: "Measure & manipulate",
-        items: [
-          "Vmem imaging (DiBAC, CC2-DMPE, ANNINE-6+)",
-          "Gap-junction tracers (Neurobiotin, Lucifer Yellow)",
-          "Patch-/voltage-clamp; multichannel electrodes",
-          "Opto/chemogenetic & pharmacologic actuators",
-          "Electrophysiology-aware 3D simulations",
-        ],
-      },
-    ],
-  },
 ];
-
-export default function App() {
-  return (
-    <div className="wrap">
-      <section className="hero" id="top">
-        <div className="glow" aria-hidden />
-        <div className="kicker">Bioelectricity roadmap</div>
-        <h1 className="h1">Bioelectricity Roadmap</h1>
-        <p className="sub">“Vmem → Chromatin → Transcriptome → Phenotype”</p>
-
-        <nav className="nav" aria-label="Section navigation">
-          {sections.map((s) => (
-            <a key={s.id} href={`#${s.id}`}>
-              {s.title}
-            </a>
-          ))}
-        </nav>
-      </section>
-
-      <div className="grid">
-        {sections.map((s) => (
-          <section key={s.id} id={s.id} className="card">
-            <div className="badge" title={s.title}>
-              {s.emoji}
-            </div>
-            <h2 className="h2">{s.title}</h2>
-
-            {s.groups.map((g) => (
-              <div key={g.title} style={{ marginBottom: 10 }}>
-                <div className="group-title">{g.title}</div>
-                <ul className="ul">
-                  {g.items.map((it, idx) => {
-                    const item = typeof it === "string" ? { text: it } : it;
-                    return (
-                      <li className="li" key={idx}>
-                        • {item.text || it}
-                        {item.links && item.links.length > 0 && (
-                          <div className="links">
-                            {item.links.map((l) => (
-                              <a
-                                key={l.href}
-                                className="link"
-                                href={l.href}
-                                target="_blank"
-                                rel="noreferrer"
-                              >
-                                {l.label}
-                              </a>
-                            ))}
-                          </div>
-                        )}
-                      </li>
-                    );
-                  })}
-                </ul>
-              </div>
-            ))}
-          </section>
-        ))}
-      </div>
-
-      <p className="footer">Bioelectricity = the language of life</p>
-
-      <button
-        className="toTop"
-        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-      >
-        ↑ Top
-      </button>
-    </div>
-  );
-}
