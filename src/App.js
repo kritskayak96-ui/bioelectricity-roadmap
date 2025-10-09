@@ -157,7 +157,7 @@ const sections = [
           "Wound healing: visualization of endogenous electric currents during regeneration and their spatiotemporal dynamics.",
           "Oncogenic transformation: testing the hypothesis of 'bioelectric cancer attractors' — disrupted intercellular electrical communication during tumor progression.",
           "Pharmacological modulation: application of ion channel modulators, gap-junction regulators, and external fields to control morphogenesis.",
-          "Cosmetoelectric studies: exploring how local bioelectric modulation affects skin regeneration, pigmentation, and collagen remodeling — foundation for next-gen aesthetic biotechnologies."
+          "Cosmetoelectric studies: exploring how local bioelectric modulation affects skin regeneration, pigmentation, and collagen remodeling — foundation for next-gen aesthetic biotechnologies.",
         ],
       },
       {
@@ -167,7 +167,7 @@ const sections = [
           "Identification of critical bioelectric states necessary for maintaining morphogenetic stability.",
           "Construction of bioelectric attractor models explaining transitions from normal to pathological morphologies.",
           "Development of experimental interfaces for precise bioelectric control of tissue growth and healing (soft bioelectrodes, microcurrent fields).",
-          "Experimental validation of bioelectricity as a systems-level regulator of gene expression and cell identity."
+          "Experimental validation of bioelectricity as a systems-level regulator of gene expression and cell identity.",
         ],
       },
     ],
@@ -285,3 +285,75 @@ const sections = [
     ],
   },
 ];
+
+export default function App() {
+  return (
+    <div className="wrap">
+      <section className="hero" id="top">
+        <div className="glow" aria-hidden />
+        <div className="kicker">Bioelectricity roadmap</div>
+        <h1 className="h1">Bioelectricity Roadmap</h1>
+        <p className="sub">“Vmem → Chromatin → Transcriptome → Phenotype”</p>
+
+        <nav className="nav" aria-label="Section navigation">
+          {sections.map((s) => (
+            <a key={s.id} href={`#${s.id}`}>
+              {s.title}
+            </a>
+          ))}
+        </nav>
+      </section>
+
+      <div className="grid">
+        {sections.map((s) => (
+          <section key={s.id} id={s.id} className="card">
+            <div className="badge" title={s.title}>
+              {s.emoji}
+            </div>
+            <h2 className="h2">{s.title}</h2>
+
+            {s.groups.map((g) => (
+              <div key={g.title} style={{ marginBottom: 10 }}>
+                <div className="group-title">{g.title}</div>
+                <ul className="ul">
+                  {g.items.map((it, idx) => {
+                    const item = typeof it === "string" ? { text: it } : it;
+                    return (
+                      <li className="li" key={idx}>
+                        • {item.text || it}
+                        {item.links && item.links.length > 0 && (
+                          <div className="links">
+                            {item.links.map((l) => (
+                              <a
+                                key={l.href}
+                                className="link"
+                                href={l.href}
+                                target="_blank"
+                                rel="noreferrer"
+                              >
+                                {l.label}
+                              </a>
+                            ))}
+                          </div>
+                        )}
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            ))}
+          </section>
+        ))}
+      </div>
+
+      <p className="footer">Bioelectricity = the language of life</p>
+
+      <button
+        className="toTop"
+        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+      >
+        ↑ Top
+      </button>
+    </div>
+  );
+}
