@@ -1,147 +1,105 @@
 /* =========================================================
-   ELECTROBIOPUNK — LIGHT NEON GLOW (drop-in, React-friendly)
+   ELECTROBIOPUNK — LIGHT NEON GLOW (React, контейнер .ebp)
    Файл: src/styles.css
    ========================================================= */
 
-/* ---------- Палитра ---------- */
+/* Палитра */
 :root{
-  --base-0: #fbfdff;
-  --base-1: #eef7ff;
-  --ink:    #1f2937;
-  --muted:  #4b5563;
+  --base-0:#f9fbff;
+  --base-1:#eef6ff;
+  --ink:#1f2937;
+  --muted:#4b5563;
 
-  --neon:   #00e5ff;
-  --turq:   #7df9ff;
-  --violet: #c084fc;
+  --neon:#00e5ff;
+  --turq:#7df9ff;
+  --violet:#c084fc;
 
-  --glow-opacity-1: 0.35;
-  --glow-opacity-2: 0.25;
-  --glow-opacity-3: 0.12;
-  --grain-opacity:  0.06;
+  /* усилим видимость бликов */
+  --glow-opacity-1:.50;
+  --glow-opacity-2:.36;
+  --glow-opacity-3:.20;
+  --grain-opacity:.06;
 
-  --maxw: 980px;
-  --radius: 18px;
-  --shadow: 0 12px 36px rgba(0,0,0,.08);
-  --border: 1px solid rgba(31,41,55,.08);
+  --maxw:1000px;
+  --radius:22px;
+  --shadow:0 18px 60px rgba(0,0,0,.10);
+  --border:1px solid rgba(31,41,55,.10);
 }
 
-html, body { height: 100%; }
-* { box-sizing: border-box; }
+html,body{height:100%}
+*{box-sizing:border-box}
 
 body{
-  margin: 0;
-  color: var(--ink);
-  font: 16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,"Noto Sans",sans-serif;
-  background: var(--base-0); /* фолбэк-цвет */
-  position: relative;
+  margin:0;
+  color:var(--ink);
+  font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,"Noto Sans",sans-serif;
+  background:var(--base-0);
+  position:relative;
 }
 
-/* Фон-оверлей */
+/* Яркий фон через body::before, чтобы его не перебивали */
 body::before{
   content:"";
-  position: fixed;
-  inset: 0;
-  z-index: -1;
+  position:fixed; inset:0; z-index:-1; pointer-events:none;
   background:
     radial-gradient(circle at 50% 50%, rgba(0,0,0,var(--grain-opacity)) 0, rgba(0,0,0,0) 60%) repeat,
-    radial-gradient(600px 500px at 8% 10%,  rgba(0,229,255,var(--glow-opacity-1)) 0%, rgba(255,255,255,0) 70%),
-    radial-gradient(700px 550px at 88% 22%, rgba(125,249,255,var(--glow-opacity-2)) 0%, rgba(255,255,255,0) 72%),
-    radial-gradient(1000px 700px at 50% 95%, rgba(192,132,252,var(--glow-opacity-3)) 0%, rgba(255,255,255,0) 75%),
-    linear-gradient(180deg, var(--base-0) 0%, var(--base-1) 100%);
+    radial-gradient(700px 560px at 10% 6%,  rgba(0,229,255,var(--glow-opacity-1)) 0%, rgba(255,255,255,0) 68%),
+    radial-gradient(820px 620px at 90% 18%, rgba(125,249,255,var(--glow-opacity-2)) 0%, rgba(255,255,255,0) 70%),
+    radial-gradient(1200px 800px at 50% 96%, rgba(192,132,252,var(--glow-opacity-3)) 0%, rgba(255,255,255,0) 78%),
+    linear-gradient(180deg,var(--base-0) 0%, var(--base-1) 100%);
   background-size: 900px 900px, auto, auto, auto, auto;
   background-blend-mode: soft-light, screen, screen, screen, normal;
-  pointer-events: none;
 }
-
-/* Более «чистый» свет (если поддерживается color-mix/oklab) */
-@supports (color: color-mix(in oklab, white 100%, black 0%)) {
+@supports (color: color-mix(in oklab, white 100%, black 0%)){
   body::before{
     background:
-      radial-gradient(circle at 50% 50%,
-        rgba(0,0,0,var(--grain-opacity)) 0, rgba(0,0,0,0) 60%) repeat,
-      radial-gradient(600px 500px at 8% 10%,
-        color-mix(in oklab, var(--neon) 100%, white 0%) var(--glow-opacity-1),
-        rgba(255,255,255,0) 70%),
-      radial-gradient(700px 550px at 88% 22%,
-        color-mix(in oklab, var(--turq) 100%, white 0%) var(--glow-opacity-2),
-        rgba(255,255,255,0) 72%),
-      radial-gradient(1000px 700px at 50% 95%,
-        color-mix(in oklab, var(--violet) 100%, white 0%) var(--glow-opacity-3),
-        rgba(255,255,255,0) 75%),
-      linear-gradient(180deg, var(--base-0) 0%, var(--base-1) 100%);
+      radial-gradient(circle at 50% 50%, rgba(0,0,0,var(--grain-opacity)) 0, rgba(0,0,0,0) 60%) repeat,
+      radial-gradient(700px 560px at 10% 6%,  color-mix(in oklab, var(--neon) 100%, white 0%) var(--glow-opacity-1), rgba(255,255,255,0) 68%),
+      radial-gradient(820px 620px at 90% 18%, color-mix(in oklab, var(--turq) 100%, white 0%) var(--glow-opacity-2), rgba(255,255,255,0) 70%),
+      radial-gradient(1200px 800px at 50% 96%, color-mix(in oklab, var(--violet) 100%, white 0%) var(--glow-opacity-3), rgba(255,255,255,0) 78%),
+      linear-gradient(180deg,var(--base-0) 0%, var(--base-1) 100%);
   }
 }
 
-/* ---------- Контейнер (без правки разметки) ----------
-   В CRA обычно: <div id="root"><div>…App…</div></div>.
-   Делаем контейнером: .App, .container и первый див под #root.
-*/
-#root > div,
-.App,
-.container{
-  max-width: var(--maxw);
-  margin: clamp(24px, 5vmin, 48px) auto;
-  padding: 0 24px;
+/* Контейнер (то, что ты обернул в .ebp) */
+.ebp{
+  max-width:var(--maxw);
+  margin:clamp(24px,5vmin,56px) auto;
+  padding:0 24px;
 }
 
-/* Заголовки */
+/* Типографика */
 h1{
-  font-size: clamp(32px, 5vw, 56px);
-  line-height: 1.08;
-  letter-spacing: -0.02em;
-  margin: 0 0 10px 0;
+  font-size:clamp(36px,6vw,64px);
+  line-height:1.05;
+  letter-spacing:-.02em;
+  margin:0 0 10px 0;
 }
 h2{
-  font-size: clamp(22px, 3.2vw, 32px);
-  margin: 0 0 12px 0;
+  font-size:clamp(22px,3vw,32px);
+  margin:0 0 12px 0;
 }
-p{ margin: .5rem 0 .75rem; }
-p.lead{
-  color: var(--muted);
-  font-size: clamp(16px, 2vw, 19px);
+p{margin:.5rem 0 .9rem}
+a{color:#0b78ff; text-underline-offset:3px}
+a:hover{ text-decoration-thickness:2px }
+
+/* Авто-карточки: каждый прямой блок внутри .ebp (кроме первого) */
+.ebp > *:not(:first-child){
+  background:#ffffffee;
+  backdrop-filter:blur(2px);
+  border:var(--border);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  padding:clamp(18px,3.2vw,32px);
+  margin:22px 0;
 }
+.ebp > *:not(:first-child) > h2:first-child{ margin-top:2px }
 
-/* ---------- Авто-карточки ----------
-   Превращаем ПРЯМЫЕ дочерние блоки контейнера в карточки.
-   Не трогаем самый первый (герой/лид).
-*/
-#root > div > *:not(:first-child),
-.App > *:not(:first-child),
-.container > *:not(:first-child){
-  background: #ffffffee;
-  backdrop-filter: blur(2px);
-  border: var(--border);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  padding: clamp(16px, 3vw, 28px);
-  margin: 18px 0;
-}
+/* Списки приятнее */
+ul,ol{padding-left:1.25rem; margin:.25rem 0 .9rem}
+li{margin:.25rem 0}
 
-/* Если внутри карточки сразу заголовок */
-#root > div > *:not(:first-child) > h2:first-child,
-.App > *:not(:first-child) > h2:first-child,
-.container > *:not(:first-child) > h2:first-child{
-  margin-top: 2px;
-}
-
-/* Списки и ссылки */
-ul, ol{ padding-left: 1.25rem; margin: .25rem 0 .75rem; }
-li{ margin: .25rem 0; }
-a{ color: #0b78ff; text-underline-offset: 2px; }
-a:hover{ text-decoration-thickness: 2px; }
-
-/* Бейджики (если понадобятся) */
-.pill{
-  display:inline-block;
-  border: var(--border);
-  border-radius: 999px;
-  padding: 6px 10px;
-  margin: 6px 8px 0 0;
-  font-size: 13px;
-  background: #fff;
-}
-
-/* Мобила */
-@media (max-width: 540px){
-  #root > div, .App, .container{ padding: 0 16px; }
+/* Мобилка */
+@media (max-width:560px){
+  .ebp{padding:0 16px}
 }
