@@ -1,142 +1,138 @@
- /* ---------- Палитра и параметры темы (светлый фон + неон/бирюза) ---------- */
-    :root{
-      /* База (светлая тема) */
-      --base-0: #fbfdff;   /* очень светлый фон */
-      --base-1: #eef7ff;   /* легкий голубоватый тон */
-      --ink:    #1f2937;   /* тёмный текст */
-      --muted:  #4b5563;
+  /* ---------- Тонкая настройка через переменные ---------- */
+  :root{
+    /* База (светлая тема) */
+    --base-0: #fbfdff;   /* очень светлый фон */
+    --base-1: #eef7ff;   /* легкий голубоватый тон */
+    --ink:    #1f2937;   /* тёмный текст */
+    --muted:  #4b5563;
 
-      /* Цвета бликов/свечения */
-      --neon:   #00e5ff;   /* неоновый голубой */
-      --turq:   #7df9ff;   /* бирюзовый */
-      --violet: #c084fc;   /* нежный фиолетовый акцент */
+    /* Цвета бликов/свечения */
+    --neon:   #00e5ff;   /* неоновый голубой */
+    --turq:   #7df9ff;   /* бирюзовый */
+    --violet: #c084fc;   /* еле заметный фиолетовый акцент (можно 0% прозрачности) */
 
-      /* Интенсивности и эффекты */
-      --glow-opacity-1: 0.35;   /* верхний левый неоновый */
-      --glow-opacity-2: 0.25;   /* правый бирюзовый */
-      --glow-opacity-3: 0.12;   /* большой мягкий снизу */
-      --grain-opacity:  0.06;   /* «плёнка/зерно» (0 чтобы отключить) */
+    /* Интенсивности и радиусы */
+    --glow-opacity-1: 0.35;   /* верхний левый неоновый */
+    --glow-opacity-2: 0.25;   /* правый бирюзовый */
+    --glow-opacity-3: 0.12;   /* большой мягкий фиолетовый */
+    --grain-opacity:  0.06;   /* плёнка/зерно (0 отключить) */
 
-      --maxw: 1000px;
-      --radius: 20px;
-      --shadow: 0 10px 35px rgba(0,0,0,.08);
-      --border: 1px solid rgba(31,41,55,.08);
-    }
+    --maxw: 1000px;
+    --radius: 20px;
+    --shadow: 0 10px 35px rgba(0,0,0,.08);
+    --border: 1px solid rgba(31,41,55,.08);
+  }
 
-    /* ---------- Базовая типографика/контейнер ---------- */
-    html, body { height: 100%; }
-    body{
-      margin: 0;
-      color: var(--ink);
-      font: 16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,"Noto Sans",sans-serif;
+  /* ---------- Глобальные стили ---------- */
+  html,body{
+    height:100%;
+  }
+  body{
+    margin:0;
+    color:var(--ink);
+    font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,"Noto Sans",sans-serif;
+    /* Слоёный фон: базовый градиент + несколько радиальных бликов + тонкое зерно */
+    background:
+      /* зерно поверх (тонко) */
+      radial-gradient(circle at 50% 50%,
+        rgba(0,0,0,var(--grain-opacity)) 0,
+        rgba(0,0,0,0) 60%) repeat,
+      /* бликовый акцент сверху слева (неон) */
+      radial-gradient(600px 500px at 8% 10%,
+        color-mix(in oklab, var(--neon) 100%, white 0%) var(--glow-opacity-1),
+        rgba(255,255,255,0) 70%),
+      /* бирюзовый справа */
+      radial-gradient(700px 550px at 88% 22%,
+        color-mix(in oklab, var(--turq) 100%, white 0%) var(--glow-opacity-2),
+        rgba(255,255,255,0) 72%),
+      /* большой мягкий фиолетовый эллипс снизу (еле-еле) */
+      radial-gradient(1000px 700px at 50% 95%,
+        color-mix(in oklab, var(--violet) 100%, white 0%) var(--glow-opacity-3),
+        rgba(255,255,255,0) 75%),
+      /* базовый светлый фон */
+      linear-gradient(180deg, var(--base-0) 0%, var(--base-1) 100%);
+    background-size:
+      900px 900px, /* зерно */
+      auto, auto, auto, auto;
+    background-blend-mode:
+      soft-light, /* зерно мягко смешать */
+      screen, screen, screen, normal;
+  }
 
-      /* Фон по умолчанию (без color-mix/oklab — совместимый фолбэк) */
-      background:
-        /* зерно сверху (тонкое) */
-        radial-gradient(circle at 50% 50%,
-          rgba(0,0,0,var(--grain-opacity)) 0, rgba(0,0,0,0) 60%) repeat,
-        /* левый верх (неон) */
-        radial-gradient(600px 500px at 8% 10%,
-          rgba(0,229,255, var(--glow-opacity-1)) 0%, rgba(255,255,255,0) 70%),
-        /* правый верх (бирюза) */
-        radial-gradient(700px 550px at 88% 22%,
-          rgba(125,249,255, var(--glow-opacity-2)) 0%, rgba(255,255,255,0) 72%),
-        /* низ (фиолетовый мягко) */
-        radial-gradient(1000px 700px at 50% 95%,
-          rgba(192,132,252, var(--glow-opacity-3)) 0%, rgba(255,255,255,0) 75%),
-        /* базовый светлый фон */
-        linear-gradient(180deg, var(--base-0) 0%, var(--base-1) 100%);
-      background-size: 900px 900px, auto, auto, auto, auto;
-      background-blend-mode: soft-light, screen, screen, screen, normal;
-    }
+  /* Контейнер */
+  .wrap{
+    max-width: var(--maxw);
+    margin: min(8vmin,80px) auto;
+    padding: 0 24px;
+  }
 
-    /* Если поддерживается color-mix/oklab — применим более “чистый” свет */
-    @supports (color: color-mix(in oklab, white 100%, black 0%)) {
-      body{
-        background:
-          radial-gradient(circle at 50% 50%,
-            rgba(0,0,0,var(--grain-opacity)) 0, rgba(0,0,0,0) 60%) repeat,
-          radial-gradient(600px 500px at 8% 10%,
-            color-mix(in oklab, var(--neon) 100%, white 0%) var(--glow-opacity-1),
-            rgba(255,255,255,0) 70%),
-          radial-gradient(700px 550px at 88% 22%,
-            color-mix(in oklab, var(--turq) 100%, white 0%) var(--glow-opacity-2),
-            rgba(255,255,255,0) 72%),
-          radial-gradient(1000px 700px at 50% 95%,
-            color-mix(in oklab, var(--violet) 100%, white 0%) var(--glow-opacity-3),
-            rgba(255,255,255,0) 75%),
-          linear-gradient(180deg, var(--base-0) 0%, var(--base-1) 100%);
-      }
-    }
+  header{
+    margin-bottom: 28px;
+  }
+  h1{
+    font-size: clamp(28px, 3.5vw, 46px);
+    line-height: 1.1;
+    margin: 0 0 8px 0;
+    letter-spacing: -0.02em;
+  }
+  .tagline{
+    color: var(--muted);
+    margin: 0;
+    font-size: clamp(14px, 1.6vw, 18px);
+  }
 
-    .wrap{
-      max-width: var(--maxw);
-      margin: min(8vmin,80px) auto;
-      padding: 0 24px;
-    }
+  /* Карточка-пример на светлом фоне */
+  .card{
+    background: #ffffffdd;
+    backdrop-filter: blur(2px);
+    border: var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: clamp(16px, 3vw, 28px);
+    margin: 16px 0;
+  }
+  .card h2{
+    margin: 0 0 10px 0;
+    font-size: clamp(20px, 2.3vw, 26px);
+  }
+  .row{
+    display: grid;
+    grid-template-columns: repeat( auto-fit, minmax(260px, 1fr) );
+    gap: 16px;
+  }
+  .pill{
+    display:inline-block;
+    border: var(--border);
+    border-radius: 999px;
+    padding: 8px 12px;
+    margin: 6px 8px 0 0;
+    font-size: 14px;
+    background: #fff;
+  }
 
-    header{ margin-bottom: 28px; }
-    h1{
-      font-size: clamp(28px, 3.5vw, 46px);
-      line-height: 1.1;
-      margin: 0 0 8px 0;
-      letter-spacing: -0.02em;
-    }
-    .tagline{
-      color: var(--muted);
-      margin: 0;
-      font-size: clamp(14px, 1.6vw, 18px);
-    }
+  /* Небольшие ссылки/кнопки */
+  .actions{
+    margin-top: 14px;
+  }
+  .btn{
+    display:inline-block;
+    padding: 10px 14px;
+    border-radius: 12px;
+    border: var(--border);
+    text-decoration: none;
+    color: var(--ink);
+    background: #ffffff;
+    box-shadow: 0 6px 16px rgba(0,0,0,.05);
+  }
+  .btn:hover{
+    transform: translateY(-1px);
+  }
 
-    /* Карточки/грид — опциональные вспомогательные блоки */
-    .row{
-      display: grid;
-      grid-template-columns: repeat( auto-fit, minmax(260px, 1fr) );
-      gap: 16px;
-    }
-    .card{
-      background: #ffffffdd;
-      backdrop-filter: blur(2px);
-      border: var(--border);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: clamp(16px, 3vw, 28px);
-      margin: 16px 0;
-    }
-    .card h2{
-      margin: 0 0 10px 0;
-      font-size: clamp(20px, 2.3vw, 26px);
-    }
-    .pill{
-      display: inline-block;
-      border: var(--border);
-      border-radius: 999px;
-      padding: 8px 12px;
-      margin: 6px 8px 0 0;
-      font-size: 14px;
-      background: #fff;
-    }
-    .actions{ margin-top: 14px; }
-    .btn{
-      display: inline-block;
-      padding: 10px 14px;
-      border-radius: 12px;
-      border: var(--border);
-      text-decoration: none;
-      color: var(--ink);
-      background: #ffffff;
-      box-shadow: 0 6px 16px rgba(0,0,0,.05);
-      transition: transform .12s ease, box-shadow .12s ease;
-    }
-    .btn:hover{
-      transform: translateY(-1px);
-      box-shadow: 0 10px 24px rgba(0,0,0,.08);
-    }
-
-    @media (max-width: 520px){
-      .wrap{ padding: 0 16px; }
-    }
-  </style>
+  /* Адаптивные отступы */
+  @media (max-width: 520px){
+    .wrap{ padding: 0 16px; }
+  }
+</style>
 </head>
 <body>
   <div class="wrap">
@@ -145,21 +141,18 @@
       <p class="tagline">Светлый фон с неоново-бирюзовыми бликами и тёмной типографикой.</p>
     </header>
 
-    <!-- Карточка с описанием -->
     <section class="card">
       <h2>Что это?</h2>
       <p>
-        Фон собран из нескольких <strong>radial-gradient</strong> слоёв (неон, бирюза, мягкий фиолетовый)
-        поверх светлого линейного градиента. Интенсивность регулируют переменные
-        <code>--glow-opacity-1/2/3</code>, а цвета — <code>--neon</code>, <code>--turq</code>, <code>--violet</code>.
-        Для максимальной совместимости есть фолбэк без <code>color-mix()</code>.
+        Фон построен из нескольких <strong>radial-gradient</strong> слоёв (неон, бирюза, лёгкий фиолетовый) поверх
+        светлого линейного градиента. Интенсивность регулируется переменными
+        <code>--glow-opacity-1/2/3</code>, цвета — <code>--neon</code>, <code>--turq</code>, <code>--violet</code>.
       </p>
       <div class="actions">
-        <a class="btn" href="#" id="glowToggle">Чуть ярче блики</a>
+        <a class="btn" href="#" onclick="cycleTheme();return false;">Чуть ярче блики</a>
       </div>
     </section>
 
-    <!-- Демо-сетка (можно удалить) -->
     <section class="row">
       <div class="card">
         <h2>Быстрые правки</h2>
@@ -172,37 +165,26 @@
         <span class="pill">--glow-opacity-3: 0.12;</span>
       </div>
       <div class="card">
-        <h2>Советы</h2>
-        <p>
-          Если фон слишком яркий — уменьшай <code>--glow-opacity-*</code> или
-          делай базу холоднее через <code>--base-1</code> (например, <code>#f3f6fb</code>).
-          Хочешь без фиолетового — поставь <code>--glow-opacity-3: 0</code>.
-        </p>
+        <h2>Советы по типографике</h2>
+        <p>Используй тёмный текст <code>--ink</code> и избегай слишком насыщенных оттенков на светлом фоне.
+           Для акцентов лучше применять лёгкие тени и увеличенные межбуквенные интервалы.</p>
       </div>
     </section>
   </div>
 
-  <script>
-    // Лёгкий тумблер интенсивности бликов (по клику пробегает пресеты)
-    (function () {
-      const btn = document.getElementById('glowToggle');
-      if (!btn) return;
-      let step = 0;
-      const presets = [
-        {o1:.35,o2:.25,o3:.12},
-        {o1:.42,o2:.30,o3:.16},
-        {o1:.50,o2:.36,o3:.20},
-        {o1:.28,o2:.20,o3:.10}
-      ];
-      btn.addEventListener('click', function (e) {
-        e.preventDefault();
-        step = (step + 1) % presets.length;
-        const root = document.documentElement.style;
-        root.setProperty('--glow-opacity-1', presets[step].o1);
-        root.setProperty('--glow-opacity-2', presets[step].o2);
-        root.setProperty('--glow-opacity-3', presets[step].o3);
-      });
-    }());
-  </script>
-</body>
-</html>
+<script>
+  // Небольшой helper: по клику сделать блики чуть выразительнее
+  let step = 0;
+  function cycleTheme(){
+    step = (step + 1) % 4;
+    const root = document.documentElement.style;
+    const presets = [
+      {o1:.35,o2:.25,o3:.12},
+      {o1:.42,o2:.3,o3:.16},
+      {o1:.5,o2:.36,o3:.2},
+      {o1:.28,o2:.2,o3:.1}
+    ];
+    root.setProperty('--glow-opacity-1', presets[step].o1);
+    root.setProperty('--glow-opacity-2', presets[step].o2);
+    root.setProperty('--glow-opacity-3', presets[step].o3);
+  }
