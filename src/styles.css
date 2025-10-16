@@ -1,56 +1,62 @@
-  /* =========================================================
-   ELECTROBIOPUNK — LIGHT NEON GLOW THEME
+/* =========================================================
+   ELECTROBIOPUNK — LIGHT NEON GLOW (drop-in)
    Файл: styles.css
-   Автор: Денис Ларюшкин
    ========================================================= */
 
-/* ---------- Палитра и параметры темы (светлый фон + неон/бирюза) ---------- */
+/* ---------- Палитра ---------- */
 :root{
-  /* База (светлая тема) */
-  --base-0: #fbfdff;   /* очень светлый фон */
-  --base-1: #eef7ff;   /* легкий голубоватый тон */
-  --ink:    #1f2937;   /* тёмный текст */
+  --base-0: #fbfdff;
+  --base-1: #eef7ff;
+  --ink:    #1f2937;
   --muted:  #4b5563;
 
-  /* Цвета бликов/свечения */
-  --neon:   #00e5ff;   /* неоновый голубой */
-  --turq:   #7df9ff;   /* бирюзовый */
-  --violet: #c084fc;   /* нежный фиолетовый акцент */
+  --neon:   #00e5ff;
+  --turq:   #7df9ff;
+  --violet: #c084fc;
 
-  /* Интенсивности и эффекты */
-  --glow-opacity-1: 0.35;   /* верхний левый неоновый */
-  --glow-opacity-2: 0.25;   /* правый бирюзовый */
-  --glow-opacity-3: 0.12;   /* нижний фиолетовый */
-  --grain-opacity:  0.06;   /* «плёнка/зерно» (0 чтобы отключить) */
+  --glow-opacity-1: 0.35;
+  --glow-opacity-2: 0.25;
+  --glow-opacity-3: 0.12;
+  --grain-opacity:  0.06;
 
-  --maxw: 1000px;
-  --radius: 20px;
-  --shadow: 0 10px 35px rgba(0,0,0,.08);
+  --maxw: 980px;
+  --radius: 18px;
+  --shadow: 0 12px 36px rgba(0,0,0,.08);
   --border: 1px solid rgba(31,41,55,.08);
 }
 
-/* ---------- Базовая типографика и фон ---------- */
+/* ---------- База и типографика ---------- */
 html, body { height: 100%; }
+* { box-sizing: border-box; }
 
 body{
   margin: 0;
   color: var(--ink);
-  font: 16px/1.55 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Noto Sans", sans-serif;
+  font: 16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,"Noto Sans",sans-serif;
+  background: var(--base-0); /* фолбэк-цвет */
+  position: relative;
+}
 
-  /* Фолбэк-версия фона (для браузеров без color-mix/oklab) */
+/* Фон-оверлей — почти невозможно «перебить» другими стилями */
+body::before{
+  content:"";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
   background:
     radial-gradient(circle at 50% 50%, rgba(0,0,0,var(--grain-opacity)) 0, rgba(0,0,0,0) 60%) repeat,
-    radial-gradient(600px 500px at 8% 10%, rgba(0,229,255, var(--glow-opacity-1)) 0%, rgba(255,255,255,0) 70%),
-    radial-gradient(700px 550px at 88% 22%, rgba(125,249,255, var(--glow-opacity-2)) 0%, rgba(255,255,255,0) 72%),
-    radial-gradient(1000px 700px at 50% 95%, rgba(192,132,252, var(--glow-opacity-3)) 0%, rgba(255,255,255,0) 75%),
+    radial-gradient(600px 500px at 8% 10%,  rgba(0,229,255,var(--glow-opacity-1)) 0%, rgba(255,255,255,0) 70%),
+    radial-gradient(700px 550px at 88% 22%, rgba(125,249,255,var(--glow-opacity-2)) 0%, rgba(255,255,255,0) 72%),
+    radial-gradient(1000px 700px at 50% 95%, rgba(192,132,252,var(--glow-opacity-3)) 0%, rgba(255,255,255,0) 75%),
     linear-gradient(180deg, var(--base-0) 0%, var(--base-1) 100%);
   background-size: 900px 900px, auto, auto, auto, auto;
   background-blend-mode: soft-light, screen, screen, screen, normal;
+  pointer-events: none;
 }
 
-/* Более "чистая" версия для браузеров с поддержкой color-mix(in oklab, …) */
+/* Более «чистый» свет, если поддерживается color-mix/oklab */
 @supports (color: color-mix(in oklab, white 100%, black 0%)) {
-  body {
+  body::before{
     background:
       radial-gradient(circle at 50% 50%,
         rgba(0,0,0,var(--grain-opacity)) 0, rgba(0,0,0,0) 60%) repeat,
@@ -67,82 +73,77 @@ body{
   }
 }
 
-/* ---------- Контейнер и заголовки ---------- */
-.wrap{
+/* ---------- Контейнер: делаем контейнером main (если он есть) ---------- */
+main{
   max-width: var(--maxw);
-  margin: min(8vmin,80px) auto;
+  margin: clamp(24px, 5vmin, 48px) auto;
   padding: 0 24px;
 }
 
-header { margin-bottom: 28px; }
-
+/* Заголовки и лид */
 h1{
-  font-size: clamp(28px, 3.5vw, 46px);
-  line-height: 1.1;
-  margin: 0 0 8px 0;
+  font-size: clamp(32px, 5vw, 56px);
+  line-height: 1.08;
   letter-spacing: -0.02em;
+  margin: 0 0 10px 0;
 }
-
-.tagline{
+h2{
+  font-size: clamp(22px, 3.2vw, 32px);
+  margin: 0 0 12px 0;
+}
+p.lead{
   color: var(--muted);
-  margin: 0;
-  font-size: clamp(14px, 1.6vw, 18px);
+  font-size: clamp(16px, 2vw, 19px);
+  margin: 0 0 16px 0;
 }
 
-/* ---------- Карточки и вспомогательные элементы ---------- */
-.card{
-  background: #ffffffdd;
+/* ---------- Авто-карточки для контента ----------
+   Превратим почти любой блок в аккуратную «карточку».
+   Не трогаем первый блок внутри main (обычно лид/герой).
+*/
+main > *:not(:first-child){
+  background: #ffffffee;
   backdrop-filter: blur(2px);
   border: var(--border);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
   padding: clamp(16px, 3vw, 28px);
-  margin: 16px 0;
+  margin: 18px 0;
 }
 
-.card h2{
-  margin: 0 0 10px 0;
-  font-size: clamp(20px, 2.3vw, 26px);
+/* Если внутри карточки сразу идёт заголовок — дайте ему люфт */
+main > *:not(:first-child) > h2:first-child{
+  margin-top: 2px;
 }
 
-.row{
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 16px;
+/* Списки помягче */
+ul, ol{
+  padding-left: 1.25rem;
+  margin: .25rem 0 .75rem;
+}
+li{ margin: .25rem 0; }
+
+/* Ссылки (видны, но не кричат) */
+a{
+  color: #0b78ff;
+  text-underline-offset: 2px;
+}
+a:hover{
+  text-decoration-thickness: 2px;
 }
 
+/* Бейджики/пилюли, если используешь */
 .pill{
-  display: inline-block;
+  display:inline-block;
   border: var(--border);
   border-radius: 999px;
-  padding: 8px 12px;
+  padding: 6px 10px;
   margin: 6px 8px 0 0;
-  font-size: 14px;
+  font-size: 13px;
   background: #fff;
 }
 
-.actions{ margin-top: 14px; }
-
-.btn{
-  display: inline-block;
-  padding: 10px 14px;
-  border-radius: 12px;
-  border: var(--border);
-  text-decoration: none;
-  color: var(--ink);
-  background: #ffffff;
-  box-shadow: 0 6px 16px rgba(0,0,0,.05);
-  transition: transform .12s ease, box-shadow .12s ease;
+/* Медиа-адаптация */
+@media (max-width: 540px){
+  main{ padding: 0 16px; }
 }
-
-.btn:hover{
-  transform: translateY(-1px);
-  box-shadow: 0 10px 24px rgba(0,0,0,.08);
-}
-
-/* ---------- Адаптивные отступы ---------- */
-@media (max-width: 520px){
-  .wrap{ padding: 0 16px; }
-}
-
-
