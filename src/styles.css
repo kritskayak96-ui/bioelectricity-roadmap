@@ -1,6 +1,6 @@
 /* =========================================================
-   ELECTROBIOPUNK — LIGHT NEON GLOW (drop-in)
-   Файл: styles.css
+   ELECTROBIOPUNK — LIGHT NEON GLOW (drop-in, React-friendly)
+   Файл: src/styles.css
    ========================================================= */
 
 /* ---------- Палитра ---------- */
@@ -25,7 +25,6 @@
   --border: 1px solid rgba(31,41,55,.08);
 }
 
-/* ---------- База и типографика ---------- */
 html, body { height: 100%; }
 * { box-sizing: border-box; }
 
@@ -37,7 +36,7 @@ body{
   position: relative;
 }
 
-/* Фон-оверлей — почти невозможно «перебить» другими стилями */
+/* Фон-оверлей */
 body::before{
   content:"";
   position: fixed;
@@ -54,7 +53,7 @@ body::before{
   pointer-events: none;
 }
 
-/* Более «чистый» свет, если поддерживается color-mix/oklab */
+/* Более «чистый» свет (если поддерживается color-mix/oklab) */
 @supports (color: color-mix(in oklab, white 100%, black 0%)) {
   body::before{
     background:
@@ -73,14 +72,19 @@ body::before{
   }
 }
 
-/* ---------- Контейнер: делаем контейнером main (если он есть) ---------- */
-main{
+/* ---------- Контейнер (без правки разметки) ----------
+   В CRA обычно: <div id="root"><div>…App…</div></div>.
+   Делаем контейнером: .App, .container и первый див под #root.
+*/
+#root > div,
+.App,
+.container{
   max-width: var(--maxw);
   margin: clamp(24px, 5vmin, 48px) auto;
   padding: 0 24px;
 }
 
-/* Заголовки и лид */
+/* Заголовки */
 h1{
   font-size: clamp(32px, 5vw, 56px);
   line-height: 1.08;
@@ -91,17 +95,19 @@ h2{
   font-size: clamp(22px, 3.2vw, 32px);
   margin: 0 0 12px 0;
 }
+p{ margin: .5rem 0 .75rem; }
 p.lead{
   color: var(--muted);
   font-size: clamp(16px, 2vw, 19px);
-  margin: 0 0 16px 0;
 }
 
-/* ---------- Авто-карточки для контента ----------
-   Превратим почти любой блок в аккуратную «карточку».
-   Не трогаем первый блок внутри main (обычно лид/герой).
+/* ---------- Авто-карточки ----------
+   Превращаем ПРЯМЫЕ дочерние блоки контейнера в карточки.
+   Не трогаем самый первый (герой/лид).
 */
-main > *:not(:first-child){
+#root > div > *:not(:first-child),
+.App > *:not(:first-child),
+.container > *:not(:first-child){
   background: #ffffffee;
   backdrop-filter: blur(2px);
   border: var(--border);
@@ -111,28 +117,20 @@ main > *:not(:first-child){
   margin: 18px 0;
 }
 
-/* Если внутри карточки сразу идёт заголовок — дайте ему люфт */
-main > *:not(:first-child) > h2:first-child{
+/* Если внутри карточки сразу заголовок */
+#root > div > *:not(:first-child) > h2:first-child,
+.App > *:not(:first-child) > h2:first-child,
+.container > *:not(:first-child) > h2:first-child{
   margin-top: 2px;
 }
 
-/* Списки помягче */
-ul, ol{
-  padding-left: 1.25rem;
-  margin: .25rem 0 .75rem;
-}
+/* Списки и ссылки */
+ul, ol{ padding-left: 1.25rem; margin: .25rem 0 .75rem; }
 li{ margin: .25rem 0; }
+a{ color: #0b78ff; text-underline-offset: 2px; }
+a:hover{ text-decoration-thickness: 2px; }
 
-/* Ссылки (видны, но не кричат) */
-a{
-  color: #0b78ff;
-  text-underline-offset: 2px;
-}
-a:hover{
-  text-decoration-thickness: 2px;
-}
-
-/* Бейджики/пилюли, если используешь */
+/* Бейджики (если понадобятся) */
 .pill{
   display:inline-block;
   border: var(--border);
@@ -143,7 +141,7 @@ a:hover{
   background: #fff;
 }
 
-/* Медиа-адаптация */
+/* Мобила */
 @media (max-width: 540px){
-  main{ padding: 0 16px; }
+  #root > div, .App, .container{ padding: 0 16px; }
 }
