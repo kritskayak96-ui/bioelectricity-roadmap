@@ -1,194 +1,148 @@
-  /* ---------- Тонкая настройка через переменные ---------- */
-  :root{
-    /* База (светлая тема) */
-    --base-0: #fbfdff;   /* очень светлый фон */
-    --base-1: #eef7ff;   /* легкий голубоватый тон */
-    --ink:    #1f2937;   /* тёмный текст */
-    --muted:  #4b5563;
+  /* =========================================================
+   ELECTROBIOPUNK — LIGHT NEON GLOW THEME
+   Файл: styles.css
+   Автор: Денис Ларюшкин
+   ========================================================= */
 
-    /* Цвета бликов/свечения */
-    --neon:   #00e5ff;   /* неоновый голубой */
-    --turq:   #7df9ff;   /* бирюзовый */
-    --violet: #c084fc;   /* еле заметный фиолетовый акцент (можно 0% прозрачности) */
+/* ---------- Палитра и параметры темы (светлый фон + неон/бирюза) ---------- */
+:root{
+  /* База (светлая тема) */
+  --base-0: #fbfdff;   /* очень светлый фон */
+  --base-1: #eef7ff;   /* легкий голубоватый тон */
+  --ink:    #1f2937;   /* тёмный текст */
+  --muted:  #4b5563;
 
-    /* Интенсивности и радиусы */
-    --glow-opacity-1: 0.35;   /* верхний левый неоновый */
-    --glow-opacity-2: 0.25;   /* правый бирюзовый */
-    --glow-opacity-3: 0.12;   /* большой мягкий фиолетовый */
-    --grain-opacity:  0.06;   /* плёнка/зерно (0 отключить) */
+  /* Цвета бликов/свечения */
+  --neon:   #00e5ff;   /* неоновый голубой */
+  --turq:   #7df9ff;   /* бирюзовый */
+  --violet: #c084fc;   /* нежный фиолетовый акцент */
 
-    --maxw: 1000px;
-    --radius: 20px;
-    --shadow: 0 10px 35px rgba(0,0,0,.08);
-    --border: 1px solid rgba(31,41,55,.08);
-  }
+  /* Интенсивности и эффекты */
+  --glow-opacity-1: 0.35;   /* верхний левый неоновый */
+  --glow-opacity-2: 0.25;   /* правый бирюзовый */
+  --glow-opacity-3: 0.12;   /* нижний фиолетовый */
+  --grain-opacity:  0.06;   /* «плёнка/зерно» (0 чтобы отключить) */
 
-  /* ---------- Глобальные стили ---------- */
-  html,body{
-    height:100%;
-  }
-  body{
-    margin:0;
-    color:var(--ink);
-    font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,"Noto Sans",sans-serif;
-    /* Слоёный фон: базовый градиент + несколько радиальных бликов + тонкое зерно */
+  --maxw: 1000px;
+  --radius: 20px;
+  --shadow: 0 10px 35px rgba(0,0,0,.08);
+  --border: 1px solid rgba(31,41,55,.08);
+}
+
+/* ---------- Базовая типографика и фон ---------- */
+html, body { height: 100%; }
+
+body{
+  margin: 0;
+  color: var(--ink);
+  font: 16px/1.55 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Noto Sans", sans-serif;
+
+  /* Фолбэк-версия фона (для браузеров без color-mix/oklab) */
+  background:
+    radial-gradient(circle at 50% 50%, rgba(0,0,0,var(--grain-opacity)) 0, rgba(0,0,0,0) 60%) repeat,
+    radial-gradient(600px 500px at 8% 10%, rgba(0,229,255, var(--glow-opacity-1)) 0%, rgba(255,255,255,0) 70%),
+    radial-gradient(700px 550px at 88% 22%, rgba(125,249,255, var(--glow-opacity-2)) 0%, rgba(255,255,255,0) 72%),
+    radial-gradient(1000px 700px at 50% 95%, rgba(192,132,252, var(--glow-opacity-3)) 0%, rgba(255,255,255,0) 75%),
+    linear-gradient(180deg, var(--base-0) 0%, var(--base-1) 100%);
+  background-size: 900px 900px, auto, auto, auto, auto;
+  background-blend-mode: soft-light, screen, screen, screen, normal;
+}
+
+/* Более "чистая" версия для браузеров с поддержкой color-mix(in oklab, …) */
+@supports (color: color-mix(in oklab, white 100%, black 0%)) {
+  body {
     background:
-      /* зерно поверх (тонко) */
       radial-gradient(circle at 50% 50%,
-        rgba(0,0,0,var(--grain-opacity)) 0,
-        rgba(0,0,0,0) 60%) repeat,
-      /* бликовый акцент сверху слева (неон) */
+        rgba(0,0,0,var(--grain-opacity)) 0, rgba(0,0,0,0) 60%) repeat,
       radial-gradient(600px 500px at 8% 10%,
         color-mix(in oklab, var(--neon) 100%, white 0%) var(--glow-opacity-1),
         rgba(255,255,255,0) 70%),
-      /* бирюзовый справа */
       radial-gradient(700px 550px at 88% 22%,
         color-mix(in oklab, var(--turq) 100%, white 0%) var(--glow-opacity-2),
         rgba(255,255,255,0) 72%),
-      /* большой мягкий фиолетовый эллипс снизу (еле-еле) */
       radial-gradient(1000px 700px at 50% 95%,
         color-mix(in oklab, var(--violet) 100%, white 0%) var(--glow-opacity-3),
         rgba(255,255,255,0) 75%),
-      /* базовый светлый фон */
       linear-gradient(180deg, var(--base-0) 0%, var(--base-1) 100%);
-    background-size:
-      900px 900px, /* зерно */
-      auto, auto, auto, auto;
-    background-blend-mode:
-      soft-light, /* зерно мягко смешать */
-      screen, screen, screen, normal;
   }
+}
 
-  /* Контейнер */
-  .wrap{
-    max-width: var(--maxw);
-    margin: min(8vmin,80px) auto;
-    padding: 0 24px;
-  }
+/* ---------- Контейнер и заголовки ---------- */
+.wrap{
+  max-width: var(--maxw);
+  margin: min(8vmin,80px) auto;
+  padding: 0 24px;
+}
 
-  header{
-    margin-bottom: 28px;
-  }
-  h1{
-    font-size: clamp(28px, 3.5vw, 46px);
-    line-height: 1.1;
-    margin: 0 0 8px 0;
-    letter-spacing: -0.02em;
-  }
-  .tagline{
-    color: var(--muted);
-    margin: 0;
-    font-size: clamp(14px, 1.6vw, 18px);
-  }
+header { margin-bottom: 28px; }
 
-  /* Карточка-пример на светлом фоне */
-  .card{
-    background: #ffffffdd;
-    backdrop-filter: blur(2px);
-    border: var(--border);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    padding: clamp(16px, 3vw, 28px);
-    margin: 16px 0;
-  }
-  .card h2{
-    margin: 0 0 10px 0;
-    font-size: clamp(20px, 2.3vw, 26px);
-  }
-  .row{
-    display: grid;
-    grid-template-columns: repeat( auto-fit, minmax(260px, 1fr) );
-    gap: 16px;
-  }
-  .pill{
-    display:inline-block;
-    border: var(--border);
-    border-radius: 999px;
-    padding: 8px 12px;
-    margin: 6px 8px 0 0;
-    font-size: 14px;
-    background: #fff;
-  }
+h1{
+  font-size: clamp(28px, 3.5vw, 46px);
+  line-height: 1.1;
+  margin: 0 0 8px 0;
+  letter-spacing: -0.02em;
+}
 
-  /* Небольшие ссылки/кнопки */
-  .actions{
-    margin-top: 14px;
-  }
-  .btn{
-    display:inline-block;
-    padding: 10px 14px;
-    border-radius: 12px;
-    border: var(--border);
-    text-decoration: none;
-    color: var(--ink);
-    background: #ffffff;
-    box-shadow: 0 6px 16px rgba(0,0,0,.05);
-  }
-  .btn:hover{
-    transform: translateY(-1px);
-  }
+.tagline{
+  color: var(--muted);
+  margin: 0;
+  font-size: clamp(14px, 1.6vw, 18px);
+}
 
-  /* Адаптивные отступы */
-  @media (max-width: 520px){
-    .wrap{ padding: 0 16px; }
-  }
-</style>
-</head>
-<body>
-  <div class="wrap">
-    <header>
-      <h1>ElectroBioPunk — Light Neon Glow</h1>
-      <p class="tagline">Светлый фон с неоново-бирюзовыми бликами и тёмной типографикой.</p>
-    </header>
+/* ---------- Карточки и вспомогательные элементы ---------- */
+.card{
+  background: #ffffffdd;
+  backdrop-filter: blur(2px);
+  border: var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: clamp(16px, 3vw, 28px);
+  margin: 16px 0;
+}
 
-    <section class="card">
-      <h2>Что это?</h2>
-      <p>
-        Фон построен из нескольких <strong>radial-gradient</strong> слоёв (неон, бирюза, лёгкий фиолетовый) поверх
-        светлого линейного градиента. Интенсивность регулируется переменными
-        <code>--glow-opacity-1/2/3</code>, цвета — <code>--neon</code>, <code>--turq</code>, <code>--violet</code>.
-      </p>
-      <div class="actions">
-        <a class="btn" href="#" onclick="cycleTheme();return false;">Чуть ярче блики</a>
-      </div>
-    </section>
+.card h2{
+  margin: 0 0 10px 0;
+  font-size: clamp(20px, 2.3vw, 26px);
+}
 
-    <section class="row">
-      <div class="card">
-        <h2>Быстрые правки</h2>
-        <p>Правь переменные в <code>:root</code>:</p>
-        <span class="pill">--neon: #00e5ff;</span>
-        <span class="pill">--turq: #7df9ff;</span>
-        <span class="pill">--violet: #c084fc;</span>
-        <span class="pill">--glow-opacity-1: 0.35;</span>
-        <span class="pill">--glow-opacity-2: 0.25;</span>
-        <span class="pill">--glow-opacity-3: 0.12;</span>
-      </div>
-      <div class="card">
-        <h2>Советы по типографике</h2>
-        <p>Используй тёмный текст <code>--ink</code> и избегай слишком насыщенных оттенков на светлом фоне.
-           Для акцентов лучше применять лёгкие тени и увеличенные межбуквенные интервалы.</p>
-      </div>
-    </section>
-  </div>
+.row{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+}
 
-<script>
-  // Небольшой helper: по клику сделать блики чуть выразительнее
-  let step = 0;
-  function cycleTheme(){
-    step = (step + 1) % 4;
-    const root = document.documentElement.style;
-    const presets = [
-      {o1:.35,o2:.25,o3:.12},
-      {o1:.42,o2:.3,o3:.16},
-      {o1:.5,o2:.36,o3:.2},
-      {o1:.28,o2:.2,o3:.1}
-    ];
-    root.setProperty('--glow-opacity-1', presets[step].o1);
-    root.setProperty('--glow-opacity-2', presets[step].o2);
-    root.setProperty('--glow-opacity-3', presets[step].o3);
-  }
-</script>
-</body>
-</html>
+.pill{
+  display: inline-block;
+  border: var(--border);
+  border-radius: 999px;
+  padding: 8px 12px;
+  margin: 6px 8px 0 0;
+  font-size: 14px;
+  background: #fff;
+}
+
+.actions{ margin-top: 14px; }
+
+.btn{
+  display: inline-block;
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: var(--border);
+  text-decoration: none;
+  color: var(--ink);
+  background: #ffffff;
+  box-shadow: 0 6px 16px rgba(0,0,0,.05);
+  transition: transform .12s ease, box-shadow .12s ease;
+}
+
+.btn:hover{
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px rgba(0,0,0,.08);
+}
+
+/* ---------- Адаптивные отступы ---------- */
+@media (max-width: 520px){
+  .wrap{ padding: 0 16px; }
+}
+
 
