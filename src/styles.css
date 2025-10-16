@@ -1,9 +1,9 @@
 /* =========================================================
-   ELECTROBIOPUNK — LIGHT NEON GLOW (React, контейнер .ebp)
+   ELECTROBIOPUNK — LIGHT NEON GLOW (под твой App.js)
    Файл: src/styles.css
    ========================================================= */
 
-/* Палитра */
+/* ---------- Палитра ---------- */
 :root{
   --base-0:#f9fbff;
   --base-1:#eef6ff;
@@ -14,21 +14,23 @@
   --turq:#7df9ff;
   --violet:#c084fc;
 
-  /* усилим видимость бликов */
+  /* делаем блики выразительнее */
   --glow-opacity-1:.50;
   --glow-opacity-2:.36;
   --glow-opacity-3:.20;
   --grain-opacity:.06;
 
-  --maxw:1000px;
+  --maxw:1100px;
   --radius:22px;
   --shadow:0 18px 60px rgba(0,0,0,.10);
   --border:1px solid rgba(31,41,55,.10);
+
+  --card-bg:#ffffffee;
+  --link:#0b78ff;
 }
 
-html,body{height:100%}
 *{box-sizing:border-box}
-
+html,body{height:100%}
 body{
   margin:0;
   color:var(--ink);
@@ -37,14 +39,14 @@ body{
   position:relative;
 }
 
-/* Яркий фон через body::before, чтобы его не перебивали */
+/* Фон со светлыми неон/бирюза бликами */
 body::before{
   content:"";
   position:fixed; inset:0; z-index:-1; pointer-events:none;
   background:
     radial-gradient(circle at 50% 50%, rgba(0,0,0,var(--grain-opacity)) 0, rgba(0,0,0,0) 60%) repeat,
-    radial-gradient(700px 560px at 10% 6%,  rgba(0,229,255,var(--glow-opacity-1)) 0%, rgba(255,255,255,0) 68%),
-    radial-gradient(820px 620px at 90% 18%, rgba(125,249,255,var(--glow-opacity-2)) 0%, rgba(255,255,255,0) 70%),
+    radial-gradient(720px 560px at 10% 6%,  rgba(0,229,255,var(--glow-opacity-1)) 0%, rgba(255,255,255,0) 68%),
+    radial-gradient(840px 620px at 90% 18%, rgba(125,249,255,var(--glow-opacity-2)) 0%, rgba(255,255,255,0) 70%),
     radial-gradient(1200px 800px at 50% 96%, rgba(192,132,252,var(--glow-opacity-3)) 0%, rgba(255,255,255,0) 78%),
     linear-gradient(180deg,var(--base-0) 0%, var(--base-1) 100%);
   background-size: 900px 900px, auto, auto, auto, auto;
@@ -54,52 +56,143 @@ body::before{
   body::before{
     background:
       radial-gradient(circle at 50% 50%, rgba(0,0,0,var(--grain-opacity)) 0, rgba(0,0,0,0) 60%) repeat,
-      radial-gradient(700px 560px at 10% 6%,  color-mix(in oklab, var(--neon) 100%, white 0%) var(--glow-opacity-1), rgba(255,255,255,0) 68%),
-      radial-gradient(820px 620px at 90% 18%, color-mix(in oklab, var(--turq) 100%, white 0%) var(--glow-opacity-2), rgba(255,255,255,0) 70%),
+      radial-gradient(720px 560px at 10% 6%,  color-mix(in oklab, var(--neon) 100%, white 0%) var(--glow-opacity-1), rgba(255,255,255,0) 68%),
+      radial-gradient(840px 620px at 90% 18%, color-mix(in oklab, var(--turq) 100%, white 0%) var(--glow-opacity-2), rgba(255,255,255,0) 70%),
       radial-gradient(1200px 800px at 50% 96%, color-mix(in oklab, var(--violet) 100%, white 0%) var(--glow-opacity-3), rgba(255,255,255,0) 78%),
       linear-gradient(180deg,var(--base-0) 0%, var(--base-1) 100%);
   }
 }
 
-/* Контейнер (то, что ты обернул в .ebp) */
-.ebp{
+/* ---------- Контейнер и хедер ---------- */
+.wrap{
   max-width:var(--maxw);
   margin:clamp(24px,5vmin,56px) auto;
   padding:0 24px;
 }
 
-/* Типографика */
-h1{
-  font-size:clamp(36px,6vw,64px);
+.kicker{
+  color:var(--muted);
+  font-size:14px;
+  margin-bottom:6px;
+}
+
+.h1{
+  font-size:clamp(38px,6vw,64px);
   line-height:1.05;
   letter-spacing:-.02em;
   margin:0 0 10px 0;
 }
-h2{
-  font-size:clamp(22px,3vw,32px);
-  margin:0 0 12px 0;
-}
-p{margin:.5rem 0 .9rem}
-a{color:#0b78ff; text-underline-offset:3px}
-a:hover{ text-decoration-thickness:2px }
 
-/* Авто-карточки: каждый прямой блок внутри .ebp (кроме первого) */
-.ebp > *:not(:first-child){
-  background:#ffffffee;
+.sub{
+  color:var(--muted);
+  font-size:clamp(16px,2.1vw,18px);
+  margin:0 0 14px 0;
+}
+
+/* Дополнительное свечение прямо в hero (поверх общего фона) */
+.hero{ position:relative; }
+.hero .glow{
+  position:absolute; inset:-40px -24px auto -24px; height:180px;
+  background:
+    radial-gradient(600px 260px at 15% 30%, rgba(0,229,255,.20), rgba(255,255,255,0) 70%),
+    radial-gradient(700px 300px at 85% 20%, rgba(125,249,255,.16), rgba(255,255,255,0) 72%);
+  filter: blur(10px);
+  z-index:-1;
+  border-radius: 40px;
+}
+
+/* ---------- Навигация по разделам ---------- */
+.nav{
+  display:flex; flex-wrap:wrap; gap:10px 16px;
+  margin:10px 0 18px 0;
+}
+.nav a{
+  color:var(--link);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* ---------- Сетка и карточки ---------- */
+.grid{
+  display:grid;
+  grid-template-columns: 1fr;
+  gap: 22px;
+}
+@media (min-width: 920px){
+  .grid{ grid-template-columns: 1fr; } /* оставим по одной широкой карточке */
+}
+
+.card{
+  position:relative;
+  background:var(--card-bg);
   backdrop-filter:blur(2px);
   border:var(--border);
   border-radius:var(--radius);
   box-shadow:var(--shadow);
   padding:clamp(18px,3.2vw,32px);
-  margin:22px 0;
 }
-.ebp > *:not(:first-child) > h2:first-child{ margin-top:2px }
 
-/* Списки приятнее */
-ul,ol{padding-left:1.25rem; margin:.25rem 0 .9rem}
-li{margin:.25rem 0}
+/* Значок в углу карточки */
+.badge{
+  position:absolute;
+  top:10px; left:14px;
+  font-size:20px;
+}
 
-/* Мобилка */
+/* Заголовки карточек */
+.h2{
+  margin: 6px 0 12px 0;
+  font-size: clamp(22px,3.2vw,32px);
+  line-height:1.25;
+  padding-left: 28px; /* чтобы не налезать на badge */
+}
+
+/* Группы внутри карточек */
+.group-title{
+  font-weight:600;
+  margin: 10px 0 6px;
+}
+
+/* Списки: используешь свои точки, поэтому убираем стандартные */
+.ul{
+  list-style:none;
+  padding-left: 1rem;
+  margin: .25rem 0 .9rem;
+}
+.li{
+  margin: .30rem 0;
+}
+
+/* Блок ссылок под пунктом */
+.links{ margin: 4px 0 0 1.25rem; }
+.link{
+  display:inline-block;
+  margin-right:10px;
+  color:var(--link);
+  text-underline-offset: 2px;
+}
+
+/* Футер и кнопка вверх */
+.footer{
+  text-align:center;
+  color:var(--muted);
+  margin: 28px 0 16px;
+}
+
+.toTop{
+  position:fixed;
+  right:18px; bottom:18px;
+  border-radius:999px;
+  border:var(--border);
+  background:#fff;
+  box-shadow:0 8px 24px rgba(0,0,0,.12);
+  padding:10px 14px;
+  font-weight:600;
+  cursor:pointer;
+}
+.toTop:hover{ transform: translateY(-1px); }
+
+/* Мобильные отступы */
 @media (max-width:560px){
-  .ebp{padding:0 16px}
+  .wrap{ padding:0 16px; }
 }
